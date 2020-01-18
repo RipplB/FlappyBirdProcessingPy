@@ -21,7 +21,7 @@ def draw():
     if frameCount%60==0:
         obstacles.append(Obstacle())
     background(0x6CE3FF)
-    textSize(60)
+    textSize(80)
     stroke(0,0,0)
     line(0,height-deadline,width,height-deadline)
     bird.display()
