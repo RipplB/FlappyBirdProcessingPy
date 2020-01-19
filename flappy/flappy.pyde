@@ -1,7 +1,7 @@
 bird = None
 deadline = 150
 obstacles = []
-birdRadius = 18
+birdRadius = 40
 score = 0
 has2die = False
 def setup():
@@ -13,16 +13,18 @@ def setup():
 def draw():
     global bird
     global score
-    global birdRadius
+    global birdRadius 
     global has2die
     if keyPressed:
         if key==" ":
             bird.jump()
-    if frameCount%60==0:
+        if key=='8':
+            bird.superjump()
+    if frameCount%20==0:
         obstacles.append(Obstacle())
-    background(0x6CE3FF)
+    background(0,0,0)
     textSize(80)
-    stroke(0,0,0)
+    stroke(250,0,0)
     line(0,height-deadline,width,height-deadline)
     bird.display()
     for i,obstacle in enumerate(obstacles):
@@ -46,7 +48,7 @@ class Bird:
     def display(self):
         if self.pos.y > height-deadline:
             noLoop()
-        if frameCount-self.lastJumped > 20:
+        if frameCount-self.lastJumped > 10 :
             self.gravity = 10
         self.pos.y += self.gravity
         fill(149,134,75)
@@ -55,13 +57,16 @@ class Bird:
     def jump(self):
         self.gravity = -10
         self.lastJumped = frameCount
+    
+    def superjump(self):
+        self.pos.y-= 10
         
 class Obstacle:
     def __init__(self):
         self.pos = PVector(width,random(height-deadline-25))
     
     def display(self):
-        fill(255,0,0)
+        fill(255,250,250)
         noStroke()
         rect(self.pos.x,self.pos.y,50,50)
         self.pos.x -= 7
